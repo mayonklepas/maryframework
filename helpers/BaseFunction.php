@@ -1,8 +1,5 @@
 <?php
-
-require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/DB.php";
-
-class BaseFunction extends DB {
+class BaseFunction{
 
     function redirect($page) {
         $mainUrl = "https://" . $_SERVER['HTTP_HOST'];
@@ -21,6 +18,10 @@ class BaseFunction extends DB {
             }
             $countData++;
         }
+    }
+    
+    function flashMessage(){
+        
     }
 
 }

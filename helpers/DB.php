@@ -11,6 +11,10 @@ class DB {
     var $group = "";
     var $params = [];
     
+    public function __construct($database) {
+        $this->database = $database;
+    }
+    
     function connection($database) {
         $dsn = "mysql:host=127.0.0.1;port=3306;dbname=" . $database;
         $username = "root";

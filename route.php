@@ -1,5 +1,11 @@
 <?php
+
 $route = [
-    "/menu" => ["controller" => "Menu", "function" => "view"],
-    "/" => ["controller" => "Home", "function" => "view"],
+    "/" => "Home@view",
+    "/menu" => "Menu@view",
+    "/menu-save" => "Menu@save",
+    "/menu-delete" => "Menu@delete",
+    "/post" => "Post@view",
+    "/post-save" => "Post@save",
+    "/post-delete" => "Post@delete",
 ];
