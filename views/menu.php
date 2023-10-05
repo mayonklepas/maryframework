@@ -3,11 +3,9 @@
         <title>title</title>
     </head>
     <body>
-        <?php 
-        foreach ($data as $value) {
-            echo $value["judul"];
-        }
-        ?>
+        <?php foreach ($menu as $value): ?>
+            <?php echo $value->title ?>
+        <?php endforeach; ?>
     </body>
 </html>
 

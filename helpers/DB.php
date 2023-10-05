@@ -11,15 +11,10 @@ class DB {
     var $group = "";
     var $params = [];
     
-    function __construct($database) {
-        $this->database = $database;
-    }
-
-
     function connection($database) {
-        $dsn = "mysql:host=localhost;dbname=" . $database;
+        $dsn = "mysql:host=127.0.0.1;port=3306;dbname=" . $database;
         $username = "root";
-        $password = "Bk201!@#";
+        $password = "pass@word1";
         $option = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try {
             $connenction = new PDO($dsn, $username, $password, $option);
@@ -27,6 +22,11 @@ class DB {
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
+    }
+    
+    function db($database) {
+        $this->database = $database;
+        return $this;
     }
 
     function table($table) {
@@ -93,11 +93,11 @@ class DB {
         $buildQuery = "SELECT " . $select . " FROM " . $table . " " . $join . " " . $where . " " . $group . " " . $order;
         $statement = $this->connection($database)->prepare($buildQuery);
         $statement->execute($this->params);
-        $array = array();
-        while ($data = $statement->fetch(PDO::FETCH_ASSOC)) {
-            $array[] = $data;
+        $result = array();
+        while ($data = $statement->fetch(PDO::FETCH_OBJ)) {
+            array_push($result,$data);
         }
-        return $array;
+        return $result;
     }
 
     function insert($data) {
@@ -167,11 +167,11 @@ class DB {
         $statement->execute($params);
         $cekQuery = strtolower(substr($query, 0, 15));
         if (str_contains($cekQuery, "select")) {
-            $array = array();
-            while ($data = $statement->fetch(PDO::FETCH_ASSOC)) {
-                $array[] = $data;
+            $result = array();
+            while ($data = $statement->fetch(PDO::FETCH_OBJ)) {
+                array_push($result,$data);
             }
-            return $array;
+            return $result;
         }
         return $statement;
     }
