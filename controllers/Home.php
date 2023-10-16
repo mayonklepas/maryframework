@@ -4,7 +4,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/BaseFunction.php";
 class Home extends BaseFunction {
 
     function view() {
-        phpinfo();
+        return $this->viewPage("home");
     }
 
 }

@@ -15,5 +15,8 @@ $object = new $class;
 $param=(object)$_GET;
 if($requestMethod=="POST"){
     $param=(object)$_POST;
+    $file=(object)$_FILES;
+    $param->file=$file;
+ 
 }    
 $object->$function($param);

@@ -12,28 +12,37 @@ class Menu extends BaseFunction {
 
     public function view($req) {
         $menu = $this->db->table("menu")->get();
+        $menu1 =  $this->db->table("menu")->first();
         
         $data=[
-            "menu"=>$menu
+            "menu"=>$menu,
         ];
         $this->viewPage("menu",$data);
     }
     
     public function save($req) {
-        $data = [
+$data = [
             "title"=>$req->title,
             "synopsis"=>$req->synopsis,
             "content"=>$req->content,
-            "banner"=>$req->banner,
             "is_root"=>$req->isRoot,
             "is_sub"=>$req->isSub,
             "id_root"=>$req->idRoot
         ];
         
+        if($req->file->banner!=null){
+            $file = $req->file->banner;
+            $filename = $this->uploadImage($file);
+            $data["banner"] = $filename;
+        }
+        
         if($req->id==0){
             $this->db->table("menu")->insert($data);
         }else{
-            $data["id"]=$req->id;
+            $dataById = $this->db->where("id", $req->id)->first();
+            $this->removeImage($dataById->banner);
+            
+            $data["id"]=$dataById->id;
             $this->db->table("menu")->update($data);
         }
       

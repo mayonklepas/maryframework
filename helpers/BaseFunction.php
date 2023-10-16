@@ -10,15 +10,13 @@ class BaseFunction {
         header("location:" . $mainUrl . $page);
     }
 
-    function viewPage($page, $data) {
-        $countData = 1;
-        foreach ($data as $key => $value) {
-            ${$key} = $value;
-            if (count($data) == $countData) {
-                require_once $_SERVER['DOCUMENT_ROOT'] . "/views/" . $page . ".php";
+    function viewPage($page, $data = []) {
+        if (count($data) > 0) {
+            foreach ($data as $key => $value) {
+                ${$key} = $value;
             }
-            $countData++;
         }
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/views/" . $page . ".php";
     }
 
     function setflashMessage($message) {
@@ -42,44 +40,87 @@ class BaseFunction {
         }
         $fileFrom = $file["temp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
-        $newFileName = file["name"] . "-" . date("yyMMddHmsz") . "." . $ext;
+        $newFileName = file["name"] . "-" . date("ymdhisz") . "." . $ext;
 
         $fileTo = $path . "/" . $newFileName;
         move_uploaded_file($fileFrom, $fileTo);
         return $newFileName;
     }
-    
-    
-    function thumbImage($imgSource) {
-        $percent = 0.5;
-        list($width, $height) = getimagesize($imgSource);
+
+    function resizeImage($src,$dest,$ext,$percent) {
+        list($width, $height) = getimagesize($src);
+        echo $width;
         $newwidth = $width * $percent;
         $newheight = $height * $percent;
         $thumb = imagecreatetruecolor($newwidth, $newheight);
+        $imageSource = null;
+        if($ext=="bmp"){
+            $imageSource = imagecreatefrombmp($src);
+        }else if($ext=="png"){
+             $imageSource = imagecreatefrompng($src);
+        }else if($ext=="gif"){
+             $imageSource = imagecreatefromgif($src);
+        }else{
+            $imageSource = imagecreatefromjpeg($src);
+        }
         imagecopyresized($thumb, $imageSource, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-        return imagejpeg($thumb);
+        if($ext=="bmp"){
+            imagebmp($thumb,$dest);
+        }else if($ext=="png"){
+            imagepng($thumb,$dest);
+        }else if($ext=="gif"){
+            imagegif($thumb,$dest);
+        }else{
+            imagejpeg($thumb,$dest);
+        }
+        
+        imagedestroy($thumb);
+        imagedestroy($imageSource);
     }
 
     function uploadImage($file) {
-        $path = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image";
+        $path = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images";
         if (!file_exists($path)) {
             mkdir($path, 0775, true);
         }
-        $fileFrom = $file["temp_name"];
+        $fileFrom = $file["tmp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
-        $newFileName = file["name"] . "-" . date("yyMMddHmsz") . "." . $ext;
+        $fileName = explode(".",$file["name"])[0];
+        $newFileName = str_replace(" ", "-",$fileName). "-" . date("ymdhisz") . "." . $ext;
 
         $fileTo = $path . "/" . $newFileName;
         move_uploaded_file($fileFrom, $fileTo);
-        
-        $pathThumb = $path."/thumb";
+
+        $pathThumb = $path . "/thumb";
         if (!file_exists($pathThumb)) {
             mkdir($pathThumb, 0777, true);
         }
-        file_put_contents($pathThumb, $this->thumbImage($imgSource));
         
+        $this->resizeImage($fileTo,$pathThumb."/".$newFileName,$ext,0.2);
+        
+        $this->resizeImage($fileTo,$fileTo,$ext,0.4);
+
         return $newFileName;
     }
 
+    function removeFile($path) {
+        try {
+            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files" . $path;
+            unlink($filePath);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
+
+    function removeImage($filename) {
+        try {
+            $filethumb = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image/thumb/" . $file;
+            unlink($filePath);
+            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images" . $file;
+            unlink($filePath);
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+    }
 
 }

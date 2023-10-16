@@ -10,11 +10,11 @@ class DB {
     var $order = "";
     var $group = "";
     var $params = [];
-    
+
     public function __construct($database) {
         $this->database = $database;
     }
-    
+
     function connection($database) {
         $dsn = "mysql:host=127.0.0.1;port=3306;dbname=" . $database;
         $username = "root";
@@ -27,7 +27,7 @@ class DB {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     function db($database) {
         $this->database = $database;
         return $this;
@@ -99,9 +99,17 @@ class DB {
         $statement->execute($this->params);
         $result = array();
         while ($data = $statement->fetch(PDO::FETCH_OBJ)) {
-            array_push($result,$data);
+            array_push($result, $data);
         }
         return $result;
+    }
+
+    function first() {
+        $result = $this->get();
+        if (count($result) > 0) {
+            return $result[0];
+        }
+        return [];
     }
 
     function insert($data) {
@@ -173,7 +181,7 @@ class DB {
         if (str_contains($cekQuery, "select")) {
             $result = array();
             while ($data = $statement->fetch(PDO::FETCH_OBJ)) {
-                array_push($result,$data);
+                array_push($result, $data);
             }
             return $result;
         }

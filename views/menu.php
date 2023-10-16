@@ -23,16 +23,16 @@
 
         </div>
         <div>
-            <form method="POST" action="menu-save" enctype="application/x-www-form-urlencoded">
+            <form method="POST" action="menu-save" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="0"><br>
                 <label>Title</label>
-                <input type="text" name="title"><br>
+                <input type="text" name="title" value="title"><br>
                 <label>Synopsis</label>
-                <input type="text" name="synopsis"><br>
+                <input type="text" name="synopsis" value="synopsis"><br>
                 <label>Content</label>
-                <input type="text" name="content"><br>
+                <input type="text" name="content" value="content"><br>
                 <label>banner</label>
-                <input type="text" name="banner"><br>
+                <input type="file" name="banner"><br>
                 <label>isRoot</label>
                 <input type="text" name="isRoot" value="1"><br>
                 <label>isSub</label>
