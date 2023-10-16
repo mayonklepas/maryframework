@@ -38,9 +38,10 @@ class BaseFunction {
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
-        $fileFrom = $file["temp_name"];
+        $fileFrom = $file["tmp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
-        $newFileName = file["name"] . "-" . date("ymdhisz") . "." . $ext;
+        $fileName = explode(".",$file["name"])[0];
+        $newFileName = $fileName . "-" . date("ymdhisz") . "." . $ext;
 
         $fileTo = $path . "/" . $newFileName;
         move_uploaded_file($fileFrom, $fileTo);
@@ -114,9 +115,9 @@ class BaseFunction {
 
     function removeImage($filename) {
         try {
-            $filethumb = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image/thumb/" . $file;
-            unlink($filePath);
-            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images" . $file;
+            $filethumb = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image/thumb/" . $filename;
+            unlink($filethumb);
+            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images/" . $filename;
             unlink($filePath);
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
