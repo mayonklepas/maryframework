@@ -63,7 +63,7 @@ class BaseFunction {
     function uploadImage($file) {
         $path = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image";
         if (!file_exists($path)) {
-            mkdir($path, 0777, true);
+            mkdir($path, 0775, true);
         }
         $fileFrom = $file["temp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
