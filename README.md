@@ -1,3 +1,3 @@
-# little Mary framework
+# Little Mary framework
 
 woii senggol dong
