@@ -16,7 +16,10 @@ class BaseFunction {
                 ${$key} = $value;
             }
         }
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/views/" . $page . ".php";
+        $baseDir = $_SERVER['DOCUMENT_ROOT'];
+        $baseUrl="http://".$_SERVER['HTTP_HOST'];
+
+        require_once $baseDir . "/views/" . $page . ".php";
     }
 
     function setflashMessage($message) {
@@ -40,7 +43,7 @@ class BaseFunction {
         }
         $fileFrom = $file["tmp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
-        $fileName = explode(".",$file["name"])[0];
+        $fileName = explode(".", $file["name"])[0];
         $newFileName = $fileName . "-" . date("ymdhisz") . "." . $ext;
 
         $fileTo = $path . "/" . $newFileName;
@@ -48,33 +51,33 @@ class BaseFunction {
         return $newFileName;
     }
 
-    function resizeImage($src,$dest,$ext,$percent) {
+    function resizeImage($src, $dest, $ext, $percent) {
         list($width, $height) = getimagesize($src);
         echo $width;
         $newwidth = $width * $percent;
         $newheight = $height * $percent;
         $thumb = imagecreatetruecolor($newwidth, $newheight);
         $imageSource = null;
-        if($ext=="bmp"){
+        if ($ext == "bmp") {
             $imageSource = imagecreatefrombmp($src);
-        }else if($ext=="png"){
-             $imageSource = imagecreatefrompng($src);
-        }else if($ext=="gif"){
-             $imageSource = imagecreatefromgif($src);
-        }else{
+        } else if ($ext == "png") {
+            $imageSource = imagecreatefrompng($src);
+        } else if ($ext == "gif") {
+            $imageSource = imagecreatefromgif($src);
+        } else {
             $imageSource = imagecreatefromjpeg($src);
         }
         imagecopyresized($thumb, $imageSource, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-        if($ext=="bmp"){
-            imagebmp($thumb,$dest);
-        }else if($ext=="png"){
-            imagepng($thumb,$dest);
-        }else if($ext=="gif"){
-            imagegif($thumb,$dest);
-        }else{
-            imagejpeg($thumb,$dest);
+        if ($ext == "bmp") {
+            imagebmp($thumb, $dest);
+        } else if ($ext == "png") {
+            imagepng($thumb, $dest);
+        } else if ($ext == "gif") {
+            imagegif($thumb, $dest);
+        } else {
+            imagejpeg($thumb, $dest);
         }
-        
+
         imagedestroy($thumb);
         imagedestroy($imageSource);
     }
@@ -86,8 +89,8 @@ class BaseFunction {
         }
         $fileFrom = $file["tmp_name"];
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
-        $fileName = explode(".",$file["name"])[0];
-        $newFileName = str_replace(" ", "-",$fileName). "-" . date("ymdhisz") . "." . $ext;
+        $fileName = explode(".", $file["name"])[0];
+        $newFileName = str_replace(" ", "-", $fileName) . "-" . date("ymdhisz") . "." . $ext;
 
         $fileTo = $path . "/" . $newFileName;
         move_uploaded_file($fileFrom, $fileTo);
@@ -96,10 +99,10 @@ class BaseFunction {
         if (!file_exists($pathThumb)) {
             mkdir($pathThumb, 0777, true);
         }
-        
-        $this->resizeImage($fileTo,$pathThumb."/".$newFileName,$ext,0.2);
-        
-        $this->resizeImage($fileTo,$fileTo,$ext,0.4);
+
+        $this->resizeImage($fileTo, $pathThumb . "/" . $newFileName, $ext, 0.2);
+
+        $this->resizeImage($fileTo, $fileTo, $ext, 0.4);
 
         return $newFileName;
     }
@@ -123,5 +126,6 @@ class BaseFunction {
             echo $exc->getTraceAsString();
         }
     }
+
 
 }

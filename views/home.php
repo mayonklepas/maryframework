@@ -1,8 +1,27 @@
-<?php
-phpinfo();
+<html>
+    <head>
+        <title>Little Mary Framework</title>
+        <link rel="stylesheet" href="<?php echo $baseUrl."/public/css/little-mary.css"?>"/>
+    </head>
+    <body>
+        <table class="table-minimal" border="1">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mulyadi</td>
+                    <td>Pondok prasi</td>
+                </tr>
+                <tr>
+                    <td>iwan</td>
+                    <td>ragunan</td>
+                </tr>
+            </tbody>
+        </table>
 
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHP.php to edit this template
- */
-
+    </body>
+</html>
