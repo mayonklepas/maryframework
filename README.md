@@ -1,3 +1,3 @@
-# maryframework saingannya laravel nih.. senggol dong
+# Little Mary framework
 
 woii senggol dong
