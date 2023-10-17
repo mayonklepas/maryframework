@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>title</title>
+        <link rel="stylesheet" href="<?php echo $baseUrl."/public/css/little-mary.css"?>"/>
     </head>
     <body>
         <div>
@@ -16,6 +17,7 @@
                         <tr>
                             <td><?php echo $value->title ?></td>
                             <td><?php echo $value->synopsis ?></td>
+                            <td><img class="img-round" src="<?php echo $baseUrl."/public/image/".$value->banner ?>" alt="alt"/></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
