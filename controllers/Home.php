@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/BaseFunction.php";
+require_once "helpers/BaseFunction.php";
 
 class Home extends BaseFunction {
 

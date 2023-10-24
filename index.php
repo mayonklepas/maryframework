@@ -3,6 +3,10 @@
 $requestUrl = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 
+$requestUrl= str_replace("/littlemaryframework","",$requestUrl);
+
+
+
 if (str_starts_with($requestUrl, "/public")) {
     getAssets($requestUrl);
 } else {
@@ -10,7 +14,7 @@ if (str_starts_with($requestUrl, "/public")) {
 }
 
 function getAssets($requestUrl) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/route/resources.php';
+    require_once "route/resources.php";
 
     $urlExplode = explode("/", $requestUrl);
     $dir = $urlExplode[2];
@@ -18,22 +22,22 @@ function getAssets($requestUrl) {
 
     $isExist = array_key_exists($dir, $route);
     if (!$isExist) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/views/404.php";
+        require_once "views/etc/404.php";
         return;
     }
 
     header($route[$dir][1]);
     $selectedRoute = $route[$dir][0] . "/" . $file;
-    
+
     require_once $selectedRoute;
 }
 
 function getMain($requestUrl, $requestMethod) {
-    require_once $_SERVER['DOCUMENT_ROOT'] . '/route/web.php';
+    require_once "route/web.php";
 
     $isExist = array_key_exists($requestUrl, $route);
     if (!$isExist) {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/views/404.php";
+        require_once "views/etc/404.php";
         return;
     }
 
@@ -43,7 +47,7 @@ function getMain($requestUrl, $requestMethod) {
     $controller = $selectedRoute[0];
     $function = $selectedRoute[1];
 
-    require_once $_SERVER['DOCUMENT_ROOT'] . "/controllers/" . $controller . ".php";
+    require_once "controllers/" . $controller . ".php";
     $array = explode("/", $controller);
     $class = $array[count($array) - 1];
     $object = new $class;

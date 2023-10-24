@@ -16,10 +16,10 @@ class BaseFunction {
                 ${$key} = $value;
             }
         }
-        $baseDir = $_SERVER['DOCUMENT_ROOT'];
-        $baseUrl="http://".$_SERVER['HTTP_HOST'];
 
-        require_once $baseDir . "/views/" . $page . ".php";
+        $baseUrl = "http://" . $_SERVER['HTTP_HOST'] . "/littlemaryframework";
+
+        require_once "views/" . $page . ".php";
     }
 
     function setflashMessage($message) {
@@ -37,7 +37,7 @@ class BaseFunction {
     }
 
     function uploadFile($file, $tipe) {
-        $path = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/" . $tipe;
+        $path = "resources/files/" . $tipe;
         if (!file_exists($path)) {
             mkdir($path, 0777, true);
         }
@@ -83,7 +83,7 @@ class BaseFunction {
     }
 
     function uploadImage($file) {
-        $path = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images";
+        $path = "resources/files/images";
         if (!file_exists($path)) {
             mkdir($path, 0775, true);
         }
@@ -109,23 +109,26 @@ class BaseFunction {
 
     function removeFile($path) {
         try {
-            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files" . $path;
+            $filePath = "resources/files" . $path;
             unlink($filePath);
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo "<pre>";
+            var_dump($exc);
+            echo "</pre>";
         }
     }
 
     function removeImage($filename) {
         try {
-            $filethumb = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/image/thumb/" . $filename;
+            $filethumb = "resources/files/image/thumb/" . $filename;
             unlink($filethumb);
-            $filePath = $_SERVER['DOCUMENT_ROOT'] . "/resources/files/images/" . $filename;
+            $filePath = "resources/files/images/" . $filename;
             unlink($filePath);
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo "<pre>";
+            var_dump($exc);
+            echo "</pre>";
         }
     }
-
 
 }

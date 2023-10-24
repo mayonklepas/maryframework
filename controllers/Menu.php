@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/DB.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/helpers/BaseFunction.php";
+require_once "helpers/DB.php";
+require_once "helpers/BaseFunction.php";
 
 class Menu extends BaseFunction {
     
@@ -10,14 +10,24 @@ class Menu extends BaseFunction {
         $this->db=new DB("webcpdb");
     }
 
-    public function view($req) {
+    public function viewData($req) {
         $menu = $this->db->table("menu")->get();
         $menu1 =  $this->db->table("menu")->first();
         
         $data=[
             "menu"=>$menu,
         ];
-        $this->viewPage("menu",$data);
+        $this->viewPage("menu/view",$data);
+    }
+    
+    public function viewInput($req) {
+        $menu = $this->db->table("menu")->get();
+        $menu1 =  $this->db->table("menu")->first();
+        
+        $data=[
+            "menu"=>$menu,
+        ];
+        $this->viewPage("menu/input",$data);
     }
     
     public function save($req) {

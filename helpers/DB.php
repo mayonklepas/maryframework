@@ -24,7 +24,9 @@ class DB {
             $connenction = new PDO($dsn, $username, $password, $option);
             return $connenction;
         } catch (Exception $exc) {
-            echo $exc->getTraceAsString();
+            echo "<pre>";
+            var_dump($exc);
+            echo "</pre>";
         }
     }
 
