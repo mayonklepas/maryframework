@@ -2,6 +2,7 @@
 
 $route = [
     "/" => "Home@view",
+    "" => "Home@view",
     "/menu" => "Menu@viewData",
     "/menu/input" => "Menu@viewInput",
     "/menu/save" => "Menu@save",

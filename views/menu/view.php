@@ -34,7 +34,7 @@
                     <tbody>
                         <?php foreach ($menu as $value): ?>
                             <tr>
-                                <td><?php echo $value->title ?></td>
+                                <td><?php echo $value->menu_name ?></td>
                                 <td><?php echo $value->synopsis ?></td>
                             </tr>
                         <?php endforeach; ?>

@@ -16,12 +16,13 @@ class DB {
     }
 
     function connection($database) {
-        $dsn = "mysql:host=127.0.0.1;port=3306;dbname=" . $database;
+        $dsn = "sqlite:".$database;
         $username = "root";
         $password = "pass@word1";
         $option = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try {
-            $connenction = new PDO($dsn, $username, $password, $option);
+            $connenction = new PDO($dsn);
+            //$connenction = new PDO($dsn, $username, $password, $option);
             return $connenction;
         } catch (Exception $exc) {
             echo "<pre>";
