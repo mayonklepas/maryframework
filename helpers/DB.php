@@ -16,7 +16,7 @@ class DB {
     }
 
     function connection($database) {
-        $dsn = "sqlite:".$database;
+        $dsn = "sqlite:" . $database;
         $username = "root";
         $password = "pass@word1";
         $option = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
@@ -104,6 +104,7 @@ class DB {
         while ($data = $statement->fetch(PDO::FETCH_OBJ)) {
             array_push($result, $data);
         }
+        $this->resetStatement();
         return $result;
     }
 
@@ -141,7 +142,7 @@ class DB {
         $values = [];
         foreach ($data as $k => $v) {
             if ($k == "id") {
-                $this->where = "WHERE id = ?";
+                $this->where = "WHERE rowid = ?";
                 array_push($this->params, $v);
                 break;
             }
@@ -150,7 +151,7 @@ class DB {
             array_push($values, $v);
         }
         $where = $this->where;
-        array_push($values, $this->params);
+        $values = $this->params;
         $keys = substr($keys, 1);
         $buildQuery = "UPDATE" . $table . "SET " . $keys . " " . $where;
         $statement = $this->connection($database)->prepare($buildQuery);
@@ -161,15 +162,13 @@ class DB {
     function delete($id = 0) {
         $database = $this->database;
         $table = $this->table;
-        $values = [];
         if ($id != 0) {
-            $this->where = "WHERE id = ?";
+            $this->where = "WHERE rowid = ?";
             array_push($this->params, $id);
         }
 
         $where = $this->where;
-        array_push($values, $this->params);
-
+        $values = $this->params;
         $buildQuery = "DELETE FROM " . $table . " " . $where;
         $statement = $this->connection($database)->prepare($buildQuery);
         $statement->execute($values);
@@ -189,6 +188,16 @@ class DB {
             return $result;
         }
         return $statement;
+    }
+
+    function resetStatement() {
+        $this->table = "";
+        $this->select = "*";
+        $this->join = "";
+        $this->where = "";
+        $this->group = "";
+        $this->order = "";
+        $this->params = [];
     }
 
 }

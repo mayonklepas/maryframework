@@ -20,17 +20,21 @@ class Menu extends BaseFunction {
     }
 
     public function viewInput($req) {
-        $menu = $this->db->table("tbl_menu")->get();
+        $menu = $this->db->table("tbl_menu")->where("is_sub","0")->get(); 
+        $detail = $this->db->table("tbl_menu")->where("rowid",$req->id)->first();
+        
 
         $data = [
             "menu" => $menu,
+            "detail" => $detail
         ];
         $this->viewPage("menu/input", $data);
     }
 
     public function save($req) {
         $data = [
-            "menu_name" => $req->name,
+            "menu_name" => $req->menuName,
+            "menu_desc" => $req->menuDesc,
             "is_sub" => $req->isSub,
             "id_root" => $req->idRoot,
         ];

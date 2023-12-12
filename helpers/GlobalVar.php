@@ -1,5 +1,5 @@
 <?php
 class GlobalVar{
-    public static $baseDir = "littlemaryframework";
+    public static $baseDir = "/littlemaryframework";
     
 }

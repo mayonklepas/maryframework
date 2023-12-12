@@ -16,36 +16,39 @@
                             <span class="tx-semi-large tx-bold"><i class="fa fa-edit"></i> Input Menu</span>
                         </div>
                         <div class="col-4 align-self-center">
-                            <a class="button-link float-right" href="./menu/input" class="float-right"><i class="fa fa-arrow-left"></i> Back</a>
+                            <a class="button-link float-right" href="<?php echo $baseUrl ?>/menu" class="float-right"><i class="fa fa-arrow-left"></i> Back</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="separator"></div>
-
+            <div class="separator"></div>            
             <div class="row">
                 <div class="col-6">
                     <div class="box-material">
                         <div class="box-body">
                             <div class="tx-semi-large tx-bold"><i class="fa fa-edit"></i> Input Menu<div>
-                                    <form method="POST" action="menu-save" enctype="multipart/form-data">
+                                    <form method="POST" action="<?php echo $baseUrl ?>/menu/save" enctype="multipart/form-data">
                                         <input type="hidden" name="id" value="0"><br>
-                                        <label>Title</label>
-                                        <input type="text" name="title" value="title"><br>
-                                        <label>Synopsis</label>
-                                        <input type="text" name="synopsis" value="synopsis"><br>
-                                        <label>Content</label>
-                                        <input type="text" name="content" value="content"><br>
-                                        <label>banner</label>
-                                        <input type="file" name="banner"><br>
-                                        <label>isRoot</label>
-                                        <input type="text" name="isRoot" value="1"><br>
-                                        <label>isSub</label>
-                                        <input type="text" name="isSub" value="1"><br>
-                                        <label>idRoot</label>
-                                        <input type="text" name="idRoot" value="1"><br>
-                                        <button type="submit" >Simpan</button>
+                                        <label>Nama</label>
+                                        <input type="text" name="menuName" value="<?php echo $detail->menu_name ?>"><br>
+                                        <label>Deskripsi</label>
+                                        <input type="text" name="menuDesc" value="<?php echo $detail->menu_desc ?>"><br>
+                                        <label>Gambar / Video Banner</label>
+                                        <input type="file" name="banner" ><br>
+                                        <label>Jadilan Sub Menu</label>
+                                        <select name="isSub" value="<?php echo $detail->is_sub ?>">
+                                            <option value="0">Tidak</option>
+                                            <option value="1">Ya</option>
+                                        </select>
+                                        <label>Main Menu</label>
+                                        <select name="idRoot" value="<?php echo $detail->id_root ?>">
+                                            <option value=""</option>
+                                            <?php foreach ($menu as $value): ?>
+                                                <option value="<?php echo $value->id ?>"><?php echo $value->menu_name ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <button> Simpan </button>
                                     </form>
                                 </div>
 
@@ -55,12 +58,12 @@
                     </div>
 
                 </div>
-                
+
                 <div class="col-6">
                     <div class="box-material">
                         <div class="box-body">
                             <div class="tx-semi-large tx-bold"><i class="fa fa-asterisk"></i> Input Note<div>
-                                   
+
                                 </div>
 
                             </div>

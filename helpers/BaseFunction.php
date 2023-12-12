@@ -3,9 +3,9 @@
 class BaseFunction {
 
     function redirect($page) {
-        $mainUrl = "https://" . $_SERVER['HTTP_HOST'];
+        $mainUrl = "https://" . $_SERVER['HTTP_HOST']."/littlemaryframework";
         if (empty($_SERVER['HTTPS'])) {
-            $mainUrl = "http://" . $_SERVER['HTTP_HOST'];
+            $mainUrl = "http://" . $_SERVER['HTTP_HOST']."/littlemaryframework";
         }
         header("location:" . $mainUrl . $page);
     }

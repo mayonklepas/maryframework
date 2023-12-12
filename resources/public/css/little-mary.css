@@ -891,13 +891,19 @@ table {
     font-size: 12px;
 }
 
-table-borderd{
+.table-bordered{
     border: 1 !important;
     width: 100% !important;
     border-collapse: collapse !important;
 }
 
-td,
+td {
+    border: var(--theme-border-color);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 th {
     border: var(--theme-border-color);
     padding-left: 10px;
@@ -969,7 +975,6 @@ select {
     color: var(--main-text-color);
     font-size: 12px;
     border: var(--theme-border-color);
-    ;
     height: 28px;
     border-radius: 2px;
     width: 100%;
@@ -996,15 +1001,16 @@ input[type="file"]::-webkit-file-upload-button {
     cursor: pointer;
     height: 28px;
     transition: background 0.7s;
-    border-bottom: 0px !important;
-    border-top: 0px !important;
-    border-left: 0px !important;
-    border-right: var(--theme-border-color);
+    border-bottom: 1px var(--theme-color) !important;
+    border-top: 1px var(--theme-color) !important;
+    border-left: 1px var(--theme-color)!important;
+    border-right: 1px var(--theme-color);
     background-color:var(--theme-color);
     outline-color: var(--theme-outline-input-color);
     font-family: Comfortaa;
     color:var(--theme-text-color);
     font-size: 12px;
+    
 }
 
 input[type="radio"] {
@@ -1103,7 +1109,7 @@ button:active {
     padding-top: 6.5px;
     padding-bottom: 6.5px;
     border: var(--theme-border-color);
-    border-radius: 2px;
+    border-radius: 3px;
     outline: none;
     margin: 1px;
     cursor: pointer;
