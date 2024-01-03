@@ -31,19 +31,19 @@
                                     <form method="POST" action="<?php echo $baseUrl ?>/menu/save" enctype="multipart/form-data">
                                         <input type="hidden" name="id" value="0"><br>
                                         <label>Nama</label>
-                                        <input type="text" name="menuName" value="<?php echo $detail->menu_name ?>"><br>
+                                        <input type="text" name="menuName" value="<?php echo ($detail==null)?"":$detail->menu_name ?>"><br>
                                         <label>Deskripsi</label>
-                                        <input type="text" name="menuDesc" value="<?php echo $detail->menu_desc ?>"><br>
+                                        <input type="text" name="menuDesc" value="<?php echo ($detail==null)?"":$detail->menu_desc ?>"><br>
                                         <label>Gambar / Video Banner</label>
                                         <input type="file" name="banner" ><br>
                                         <label>Jadilan Sub Menu</label>
-                                        <select name="isSub" value="<?php echo $detail->is_sub ?>">
+                                        <select name="isSub" value="<?php echo ($detail==null)?0:$detail->is_sub ?>">
                                             <option value="0">Tidak</option>
                                             <option value="1">Ya</option>
                                         </select>
                                         <label>Main Menu</label>
-                                        <select name="idRoot" value="<?php echo $detail->id_root ?>">
-                                            <option value=""</option>
+                                        <select name="idRoot" value="<?php echo ($detail==null)?"":$detail->id_root ?>">
+                                            <option value=""></option>
                                             <?php foreach ($menu as $value): ?>
                                                 <option value="<?php echo $value->id ?>"><?php echo $value->menu_name ?></option>
                                             <?php endforeach; ?>
