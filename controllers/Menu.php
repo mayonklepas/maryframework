@@ -20,9 +20,12 @@ class Menu extends BaseFunction {
     }
 
     public function viewInput($req) {
-        $menu = $this->db->table("tbl_menu")->where("is_sub","0")->get(); 
-        $detail = $this->db->table("tbl_menu")->where("rowid",$req->id)->first();
-        
+        $id = 0;
+        if (isset($req->id)) {
+            $id = $req->id;
+        }
+        $menu = $this->db->table("tbl_menu")->where("is_sub", "0")->get();
+        $detail = $this->db->table("tbl_menu")->where("rowid", $id)->first();
 
         $data = [
             "menu" => $menu,
@@ -39,7 +42,7 @@ class Menu extends BaseFunction {
             "id_root" => $req->idRoot,
         ];
 
-        if ($req->file->banner != null) {
+        if ($req->file->banner->size > 0) {
             $file = $req->file->banner;
             $filename = $this->uploadImage($file);
             $data["menu_banner"] = $filename;
@@ -48,7 +51,7 @@ class Menu extends BaseFunction {
         if ($req->id == 0) {
             $this->db->table("tbl_menu")->insert($data);
         } else {
-            $dataById = $this->db->where("id", $req->id)->first();
+            $dataById = $this->db->where("rowid", $req->id)->first();
             $this->removeImage($dataById->banner);
 
             $data["id"] = $dataById->id;

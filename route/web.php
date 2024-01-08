@@ -8,7 +8,8 @@ $route = [
     "/menu/save" => "Menu@save",
     "/menu/delete" => "Menu@delete",
     
-    "/post" => "Post@view",
-    "/post-save" => "Post@save",
-    "/post-delete" => "Post@delete",
+    "/post" => "Post@viewData",
+    "/post/input" => "Post@viewInput",
+    "/post/save" => "Post@save",
+    "/post/delete" => "Post@delete",
 ];
